@@ -29,12 +29,16 @@ namespace day_3
 
             foreach(var i in Enumerable.Range(0, numBits))
             {
+                // bit shift to the appropriate bit
                 var bit = (long)1 << i;
                 
+                // find usage of 0 and 1 by using bitwise AND against the bitshift, and get counts of each
                 var bitUsage = rawBinary
                     .Select(b => b & bit)
                     .GroupBy(x => x)
                     .ToDictionary(g => g.Key, g => g.Count());
+                
+                // most used is gamma, least used is epsilon
                 gamma += bitUsage
                     .Aggregate((x, y) => x.Value > y.Value ? x : y)
                     .Key;
